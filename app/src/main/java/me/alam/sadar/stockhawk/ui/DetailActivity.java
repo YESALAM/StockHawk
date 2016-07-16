@@ -157,7 +157,7 @@ public class DetailActivity extends AppCompatActivity implements Callback {
         mainThread.post(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(DetailActivity.this, "Server Error ! Please try later .", Toast.LENGTH_LONG).show();
+                Toast.makeText(DetailActivity.this, getString(R.string.detail_server_error), Toast.LENGTH_LONG).show();
                 mChart.setNoDataText(getString(R.string.chart_fetching_error));
             }
         });
