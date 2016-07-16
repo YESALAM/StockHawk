@@ -142,7 +142,7 @@ public class Meta implements Parcelable {
      *     The first-trade
      */
     public void setFirstTrade(String firstTrade) {
-        this.firstTrade = formateDate(firstTrade);
+        this.firstTrade = formatDate(firstTrade);
     }
 
     /**
@@ -160,7 +160,7 @@ public class Meta implements Parcelable {
      *     The last-trade
      */
     public void setLastTrade(String lastTrade) {
-        this.lastTrade = formateDate(lastTrade);
+        this.lastTrade = formatDate(lastTrade);
     }
 
     /**
@@ -199,7 +199,7 @@ public class Meta implements Parcelable {
         this.previousClosePrice = previousClosePrice;
     }
 
-    private String formateDate(String date){
+    private String formatDate(String date){
         StringBuilder builder = new StringBuilder() ;
         builder.append(date.substring(6))
                 .append("/")

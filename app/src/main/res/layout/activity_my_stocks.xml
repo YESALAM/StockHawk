@@ -34,6 +34,5 @@
       android:id="@+id/no_network_tv"
       android:visibility="gone"
       android:text="@string/network_unavailable"
-
       android:textSize="25sp" />
 </FrameLayout>

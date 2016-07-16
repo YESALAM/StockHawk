@@ -8,8 +8,10 @@ import android.os.Looper;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -86,61 +88,55 @@ public class DetailActivity extends AppCompatActivity implements Callback {
             i++ ;
         }
 
-        LineDataSet set1;
+            LineDataSet dataSet;
 
-        /*if (mChart.getData() != null &&
-                mChart.getData().getDataSetCount() > 0) {
-            set1 = (LineDataSet)mChart.getData().getDataSetByIndex(0);
-            set1.setValues(values);
-            mChart.getData().notifyDataChanged();
-            mChart.notifyDataSetChanged();
-        } else {*/
-            // create a dataset and give it a type
-            set1 = new LineDataSet(values, symbol);
+            dataSet = new LineDataSet(values, symbol);
 
             // set the line to be drawn like this "- - - - - -"
-            set1.enableDashedLine(10f, 5f, 0f);
-            set1.enableDashedHighlightLine(10f, 5f, 0f);
-            set1.setColor(Color.BLACK);
-            set1.setCircleColor(Color.BLACK);
-            set1.setLineWidth(1f);
-            set1.setCircleRadius(3f);
-            set1.setDrawCircleHole(false);
-            set1.setValueTextSize(9f);
-            set1.setDrawFilled(true);
+            dataSet.setColor(Color.WHITE);
+            dataSet.setDrawCircles(false);
+            dataSet.setValueTextColor(Color.WHITE);
+            dataSet.setDrawFilled(false);
 
-            if (Utils.getSDKInt() >= 18 && 5==6) {
+            //TODO set the nice color for drawing.
+          /*  if (Utils.getSDKInt() >= 18 && 5==6) {
                 // fill drawable only supported on api level 18 and above
                 Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_red);
-                set1.setFillDrawable(drawable);
+                dataSet.setFillDrawable(drawable);
             }
             else {
-                set1.setFillColor(Color.BLACK);
-            }
+                dataSet.setFillColor(Color.BLACK);
+            }*/
 
             ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-            dataSets.add(set1); // add the datasets
+            dataSets.add(dataSet); // add the datasets
 
             // create a data object with the datasets
             LineData data = new LineData(xvalues,dataSets);
+            data.setValueTextColor(Color.WHITE);
+            data.setDrawValues(false);
 
             XAxis xAxis = mChart.getXAxis();
-            // xAxis.setLabelsToSkip(4);
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
             xAxis.setTextSize(10f);
-            YAxis left = mChart.getAxisLeft();
-            left.setEnabled(true);
-            left.setLabelCount(5, true);
-
             xAxis.setTextColor(Color.WHITE);
-            left.setTextColor(Color.WHITE);
+
+            YAxis yAxis = mChart.getAxisLeft();
+            yAxis.setEnabled(true);
+            yAxis.setLabelCount(5, true);
+            yAxis.setTextColor(Color.WHITE);
 
             mChart.getAxisRight().setEnabled(false);
-
             mChart.getLegend().setTextSize(12f);
+            mChart.setDescriptionColor(Color.WHITE);
 
             // set data
             mChart.setData(data);
+            mChart.setDescription(getString(R.string.chart_descrioption));
+
+            mChart.setNoDataText(getString(R.string.chart_fetching_data));
+            mChart.setContentDescription(getString(R.string.chart_content_description)+symbol);
+
             callInvalidate();
         }
 
@@ -150,12 +146,21 @@ public class DetailActivity extends AppCompatActivity implements Callback {
             @Override
             public void run() {
                 mChart.invalidate();
+                mChart.animateX(2000);
             }
         });
     }
 
     @Override
     public void onFailure(Call call, IOException e) {
+        Handler mainThread = new Handler(Looper.getMainLooper());
+        mainThread.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(DetailActivity.this, "Server Error ! Please try later .", Toast.LENGTH_LONG).show();
+                mChart.setNoDataText(getString(R.string.chart_fetching_error));
+            }
+        });
 
     }
 
@@ -220,11 +225,13 @@ public class DetailActivity extends AppCompatActivity implements Callback {
         final TextView currencytv = (TextView) findViewById(R.id.currency_detail);
         final TextView exchangename = (TextView) findViewById(R.id.stock_name_detail);
         final TextView bidpricetv = (TextView) findViewById(R.id.bid_price_detail);
+        final CardView detailcard = (CardView) findViewById(R.id.detail_card) ;
 
         Handler mainThread = new Handler(Looper.getMainLooper());
         mainThread.post(new Runnable() {
             @Override
             public void run() {
+                detailcard.setContentDescription("Detail desciption for "+meta.getTicker());
                 symboltv.setText(meta.getTicker());
                 companytv.setText(meta.getCompanyName());
                 firsttradetv.setText(meta.getFirstTrade());

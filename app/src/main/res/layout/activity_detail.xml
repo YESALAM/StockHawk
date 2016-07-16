@@ -9,6 +9,8 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="me.alam.sadar.stockhawk.ui.DetailActivity">
 
@@ -39,78 +41,92 @@
                 android:layout_column="0"
                 android:layout_row="0"
                 android:text="Stock Symbol"
+                android:layout_columnWeight="1"
                 />
             <TextView
                 android:layout_column="1"
                 android:layout_row="0"
                 android:id="@+id/stock_symbol_detail"
                 tools:text="TSLA"
+                android:layout_columnWeight="1"
                 />
             <TextView
                 android:layout_column="0"
                 android:layout_row="1"
                 android:text="Company Name"
+                android:layout_columnWeight="1"
                 />
             <TextView
                 android:layout_column="1"
                 android:layout_row="1"
                 android:id="@+id/company_name_detail"
                 tools:text="Tesla Motors,Inc."
+                android:layout_columnWeight="1"
                 />
             <TextView
                 android:layout_column="0"
                 android:layout_row="2"
                 android:text="Stock Name"
+                android:layout_columnWeight="1"
                 />
             <TextView
                 android:layout_column="1"
                 android:layout_row="2"
                 android:id="@+id/stock_name_detail"
                 tools:text="NMS"
+                android:layout_columnWeight="1"
                 />
             <TextView
                 android:layout_column="0"
                 android:layout_row="3"
                 android:text="First Trade"
+                android:layout_columnWeight="1"
                 />
             <TextView
                 android:layout_column="1"
                 android:layout_row="3"
                 android:id="@+id/first_trade_detail"
                 tools:text="29/06/2009"
+                android:layout_columnWeight="1"
                 />
             <TextView
                 android:layout_column="0"
                 android:layout_row="4"
                 android:text="Last Trade"
+                android:layout_columnWeight="1"
                 />
             <TextView
                 android:layout_column="1"
                 android:layout_row="4"
                 android:id="@+id/last_trade_detail"
                 tools:text="08/07/2019"
+                android:layout_columnWeight="1"
                 />
             <TextView
                 android:layout_column="0"
                 android:layout_row="5"
                 android:text="Currency"
+                android:layout_columnWeight="1"
                 />
             <TextView
                 android:layout_column="1"
                 android:layout_row="5"
                 android:id="@+id/currency_detail"
                 tools:text="USD"
+                android:layout_columnWeight="1"
                 />
             <TextView
                 android:layout_column="0"
                 android:layout_row="6"
                 android:text="Bid Price"
+                android:layout_columnWeight="1"
                 />
             <TextView
                 android:layout_column="1"
                 android:layout_row="6"
                 android:id="@+id/bid_price_detail"
                 tools:text="214.06"
+                android:layout_columnWeight="1"
                 />
         </GridLayout>
 

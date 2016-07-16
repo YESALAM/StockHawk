@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import me.alam.sadar.stockhawk.R;
@@ -47,8 +48,12 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
 
   @Override
   public void onBindViewHolder(final ViewHolder viewHolder, final Cursor cursor){
-    viewHolder.symbol.setText(cursor.getString(cursor.getColumnIndex("symbol")));
-    viewHolder.bidPrice.setText(cursor.getString(cursor.getColumnIndex("bid_price")));
+    String symbol = cursor.getString(cursor.getColumnIndex("symbol")) ;
+    String bidprice = cursor.getString(cursor.getColumnIndex("bid_price"));
+    String change = cursor.getString(cursor.getColumnIndex("change")) ;
+    String percent_change = cursor.getString(cursor.getColumnIndex("percent_change"));
+    viewHolder.symbol.setText(symbol);
+    viewHolder.bidPrice.setText(bidprice);
     int sdk = Build.VERSION.SDK_INT;
     if (cursor.getInt(cursor.getColumnIndex("is_up")) == 1){
       if (sdk < Build.VERSION_CODES.JELLY_BEAN){
@@ -68,10 +73,11 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
       }
     }
     if (Utils.showPercent){
-      viewHolder.change.setText(cursor.getString(cursor.getColumnIndex("percent_change")));
+      viewHolder.change.setText(percent_change);
     } else{
-      viewHolder.change.setText(cursor.getString(cursor.getColumnIndex("change")));
+      viewHolder.change.setText(change);
     }
+    viewHolder.layout.setContentDescription("Stock Symbol "+symbol+" is currently trading for "+bidprice);
   }
 
   @Override public void onItemDismiss(int position) {
@@ -91,12 +97,14 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
     public final TextView symbol;
     public final TextView bidPrice;
     public final TextView change;
+    public final LinearLayout layout ;
     public ViewHolder(View itemView){
       super(itemView);
       symbol = (TextView) itemView.findViewById(R.id.stock_symbol);
       symbol.setTypeface(robotoLight);
       bidPrice = (TextView) itemView.findViewById(R.id.bid_price);
       change = (TextView) itemView.findViewById(R.id.change);
+      layout = (LinearLayout) itemView.findViewById(R.id.list_item_layout) ;
     }
 
     @Override

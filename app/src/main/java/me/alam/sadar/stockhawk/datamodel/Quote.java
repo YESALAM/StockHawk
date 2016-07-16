@@ -5,30 +5,22 @@ package me.alam.sadar.stockhawk.datamodel;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 
 public class Quote implements Parcelable{
 
 
-    @SerializedName("Date")
-    @Expose
+
     private String date;
-    @SerializedName("Open")
-    @Expose
+
     private String open;
-    @SerializedName("High")
-    @Expose
+
     private String high;
-    @SerializedName("Low")
-    @Expose
+
     private String low;
-    @SerializedName("Close")
-    @Expose
+
     private String close;
-    @SerializedName("Volume")
-    @Expose
+
     private String volume;
 
 
@@ -47,7 +39,7 @@ public class Quote implements Parcelable{
      *     The Date
      */
     public void setDate(String date) {
-        this.date = date;
+        this.date = formatDate(date);
     }
 
     /**
@@ -144,6 +136,17 @@ public class Quote implements Parcelable{
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    private String formatDate(String date){
+        StringBuilder builder = new StringBuilder() ;
+        builder.append(date.substring(6))
+                .append("/")
+                .append(date.substring(4,6))
+                .append("/")
+                .append(date.substring(0,4));
+
+        return builder.toString();
     }
 
     @Override

@@ -12,4 +12,9 @@
   <string name="network_toast">Uh-oh! This app requires an internet connection</string>
   <string name="network_unavailable">Stock data not found . Internet Connection is not available to fetch the data . </string>
   <string name="fab_description">Add New Stock</string>
+  <string name="stock_widget">Stocks Status</string>
+  <string name="chart_descrioption">1 Year Stock History</string>
+  <string name="chart_fetching_data">Fetching Data...</string>
+  <string name="chart_fetching_error">Network Problem !</string>
+  <string name="chart_content_description">Line Chart showing historical data for </string>
 </resources>
